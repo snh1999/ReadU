@@ -1,0 +1,40 @@
+extends base
+
+block content
+   main.main 
+    .card-container
+
+      each post in posts
+        .card
+          .card__header
+            .card__picture
+              .card__picture-overlay &nbsp;
+              img.card__picture-img(src=`img/posts/${post.coverImage}`, alt=`${post.title}`)
+            h3.heading-tertirary
+              span= post.title
+
+          .card__details
+            h4.card__sub-heading= `${post.category}  |  ${post.videoLength}-minutes to complete`
+            p.card__text= post.summary 
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-calendar')
+              span= post.publishTime.toLocaleString('en-us', {day:'numeric', month: 'short', year: 'numeric'})
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-flag')
+              span= post.videoQuality
+
+          .card__footer
+            p
+              span.card__footer-value= `${post.views}  `
+              | 
+              span.card__footer-text views
+            p.card__ratings
+              span.card__footer-value= `${post.ratingAverage}`
+              | 
+              span.card__footer-text= `  (${post.totalComment}) Comments` 
+            a.btn.btn--green.btn--small(href=`/post/${post.slug}`) View
+
+
+

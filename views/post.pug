@@ -1,0 +1,67 @@
+extends base
+include _commentCard
+
+
+block content
+  section.section-header
+    .header__hero.container
+      .header__hero-overlay &nbsp;
+      //-video
+      img.header__hero-img(src=`/img/posts/${post.coverImage}`, alt=`${post.title}`)
+
+    .heading-box
+      h1.heading-primary
+        span= post.title
+      .heading-box__group
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-clock')
+          span.heading-box__text 10 days
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-map-pin')
+          span.heading-box__text Las Vegas, USA
+  section
+    .description-box.overview-box.card__details.container
+      .overview-box__group
+        svg.card__icon
+          use(xlink:href='/img/icons.svg#icon-calendar')
+        span.card__sub-heading= `Published At: ${post.publishTime.toLocaleString('en-us', {day:'numeric', month: 'short', year: 'numeric'})} by ReadU`
+        .overview-box__group
+          h2.overview-box__label= `${post.category}`
+            svg.card__icon
+              use(xlink:href='/img/icons.svg#icon-trending-up') 
+          h2.card__sub-heading= `${post.videoLength}-minutes to complete`
+          svg.
+            use(xlink:href='/img/icons.svg#icon-star')
+            span.overview-box__text Rating
+            span.overview-box__text 4.9 / 5
+    .section-description.container
+      .description-box
+        h2.heading-secondary.ma-bt-lg= `About ${post.title}`
+        p.description__text= `${post.description}`
+        p.description__text Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!
+
+
+  //- -if(post.contributor!=null)
+  //-   section.section-description
+  //-     .overview-box
+  //-       div
+  //-         .overview-box__group
+  //-           h2.heading-secondary.ma-bt-lg Contributors
+
+  //-           each contributor in post.contributor
+  //-             .overview-box__detail
+  //-               img.overview-box__img(src=`/img/users/${contributor.photo}`, alt=`${contributor.name}`)
+  //-               span.overview-box__text ${contributor.name}
+
+  //- section.section-pictures
+  //-   each img, i in post.images
+  //-     .picture-box
+  //-       img.picture-box__img(src=`/img/posts/${img}`, alt=`${post.title} ${i + 1}`, class=`picture-box__img--${i + 1}`)
+
+
+  section.container
+    .reviews
+      each review in post.comments
+        +reviewCard(review)
